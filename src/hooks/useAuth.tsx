@@ -77,8 +77,9 @@ function AuthProvider({ children }: AuthProviderData) {
         setUserToken(authResponse.params.access_token);
       }
       
-    } catch (error: any) {
+    } catch (error) {
       throw new Error(error);
+
     } finally {
       setIsLoggingIn(false);
     }
@@ -92,8 +93,10 @@ function AuthProvider({ children }: AuthProviderData) {
         { token: userToken, clientId: CLIENT_ID }, 
         { revocationEndpoint: twitchEndpoints.revocation }
       );
-    } catch (error: any) {
+
+    } catch (error) {
       throw new Error(error);
+
     } finally {
       setUser({} as User);
       setUserToken('');
@@ -109,7 +112,15 @@ function AuthProvider({ children }: AuthProviderData) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, isLoggingOut, isLoggingIn, signIn, signOut }}>
+    <AuthContext.Provider 
+      value={{ 
+        user, 
+        isLoggingOut, 
+        isLoggingIn, 
+        signIn, 
+        signOut 
+      }}
+    >
       { children }
     </AuthContext.Provider>
   )
